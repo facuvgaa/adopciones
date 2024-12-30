@@ -4,6 +4,10 @@ from .views import (
     UsuarioListAPIView, 
     SolicitudAdopcionListAPIView
 )
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -11,4 +15,6 @@ urlpatterns = [
     path('api/animales/', AnimalListAPIView.as_view(), name='animales_api'),
     path('api/usuarios/', UsuarioListAPIView.as_view(), name='usuarios_api'),
     path('api/solicitudes/', SolicitudAdopcionListAPIView.as_view(), name='solicitudes_api'),  
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

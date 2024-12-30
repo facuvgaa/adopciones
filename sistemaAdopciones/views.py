@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import Animal , Usuario, SolicitudAdopcion
 from .serializers import AnimalSerializer , UsuarioSerializer , SolicitudAdopcionSerializer
 
 
 class AnimalListAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
+        
         animales = Animal.objects.all()
         serializer = AnimalSerializer(animales, many=True)
         return Response(serializer.data)
@@ -20,6 +23,7 @@ class AnimalListAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsuarioListAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         usuarios = Usuario.objects.all()
         serializer = UsuarioSerializer(usuarios, many=True)
@@ -34,6 +38,7 @@ class UsuarioListAPIView(APIView):
 
 
 class SolicitudAdopcionListAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         solicitudes = SolicitudAdopcion.objects.all()
         serializer = SolicitudAdopcionSerializer(solicitudes, many=True)
